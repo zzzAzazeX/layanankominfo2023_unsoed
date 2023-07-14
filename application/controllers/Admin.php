@@ -458,38 +458,6 @@ class Admin extends CI_Controller {
          redirect('admin/aduaninter', 'refresh');
     }
 
-    public function create_form()
-    {
-        $data['title'] = "Create Form";
-
-        // Jika form telah disubmit
-        if ($this->input->post('submit')) {
-            // Validasi data input
-            $this->form_validation->set_rules('form_name', 'Form Name', 'required');
-            $this->form_validation->set_rules('form_description', 'Form Description', 'required');
-
-            if ($this->form_validation->run() == TRUE) {
-                // Data form yang akan disimpan ke database
-                $form_data = array(
-                    'form_name' => $this->input->post('form_name'),
-                    'form_description' => $this->input->post('form_description')
-                    // Tambahkan field lain sesuai kebutuhan
-                );
-
-                // Simpan data form ke database
-                $this->your_model->create_form($form_data);
-
-                // Redirect ke halaman yang diinginkan setelah form berhasil dibuat
-                redirect('admin/form_list');
-            }
-        }
-
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/create_form');
-        $this->load->view('admin/footer');
-    }
-
-
 }
 
 /* End of file Admin.php */
