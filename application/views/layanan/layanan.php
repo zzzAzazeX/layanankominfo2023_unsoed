@@ -4,7 +4,7 @@
         <img src="<?= base_url()?>assets/img/kisspng-kominfo-jica-expert-ministry-of-communication-and-id-5ac4684772d1d0.1483048215228211914703.png"
             class="img-fluid animated" width="300px">
         <h2><span>Kominfo</span> Purbalingga</h2>
-        <h3>"Membangun Negeri Dengan Informasi"</h3>
+        <h3>"Membangun Negeri Dengan Informasi HEHE"</h3>
     </div>
 </section>
 
