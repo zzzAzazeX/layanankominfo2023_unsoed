@@ -75,6 +75,81 @@
             </div>
         </div>
 
+        <div class="col-lg-12 mb-4">
+    <!-- Simple Tables -->
+    <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Jumlah Tiap Jenis Layanan</h6>
+        </div>
+        <div class="table-responsive p-3">
+            <table class="table align-items-center table-flush" id="dataTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nama Layanan</th>
+                        <th>Jumlah Layanan</th>
+                        <th>Diterima</th>
+                        <th>Proses</th>
+                        <th>Ditolak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Website Desa</td>
+                        <td><?php echo $allwebdesa ?></td>
+                        <td><?php echo $accwebdesa ?></td>
+                        <td><?php echo $proseswebdesa ?></td>
+                        <td><?php echo $dcwebdesa ?></td>
+                    </tr>
+                    <tr>
+                        <td>Hak Akses Web</td>
+                        <td><?php echo $allhak_akses_web ?></td>
+                        <td><?php echo $acchak_akses_web ?></td>
+                        <td><?php echo $proseshak_akses_web ?></td>
+                        <td><?php echo $dchak_akses_web ?></td>
+                    </tr>
+                    <tr>
+                        <td>Hak Akses Matur Bupati</td>
+                        <td><?php echo $allhak_akses_matur_bupati ?></td>
+                        <td><?php echo $acchak_akses_matur_bupati ?></td>
+                        <td><?php echo $proseshak_akses_matur_bupati ?></td>
+                        <td><?php echo $dchak_akses_matur_bupati ?></td>
+                    </tr>
+                    <tr>
+                        <td>Fasilitas Internet / Wifi</td>
+                        <td><?php echo $allfasilitas_inter_wifi ?></td>
+                        <td><?php echo $accfasilitas_inter_wifi ?></td>
+                        <td><?php echo $prosesfasilitas_inter_wifi ?></td>
+                        <td><?php echo $dcfasilitas_inter_wifi ?></td>
+                    </tr>
+                    <tr>
+                        <td>Fasilitas Video Conference</td>
+                        <td><?php echo $allfasilitas_video_conference ?></td>
+                        <td><?php echo $accfasilitas_video_conference ?></td>
+                        <td><?php echo $prosesfasilitas_video_conference ?></td>
+                        <td><?php echo $dcfasilitas_video_conference ?></td>
+                    </tr>
+                    <tr>
+                        <td>Aduan Pengelolaan Website</td>
+                        <td><?php echo $alladuan_pengelolaan_website ?></td>
+                        <td><?php echo $accaduan_pengelolaan_website ?></td>
+                        <td><?php echo $prosesaduan_pengelolaan_website ?></td>
+                        <td><?php echo $dcaduan_pengelolaan_website ?></td>
+                    </tr>
+                    <tr>
+                        <td>Aduan Infrastruktur dan Jaringan Internet</td>
+                        <td><?php echo $alladuan_jaringan_internet ?></td>
+                        <td><?php echo $accaduan_jaringan_internet ?></td>
+                        <td><?php echo $prosesaduan_jaringan_internet ?></td>
+                        <td><?php echo $dcaduan_jaringan_internet ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+</div>
+
+
         <!-- Message From Customer-->
         <div class="col-12">
             <div class="card">
