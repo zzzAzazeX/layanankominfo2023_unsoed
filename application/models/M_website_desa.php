@@ -32,6 +32,7 @@ class M_website_desa extends CI_Model {
             $this->db->or_like('Surat_Permohonan_Domain', $keyword);
             $this->db->or_like('Surat_Permohonan_Hosting', $keyword);
             $this->db->or_like('KTP', $keyword);
+            $this->db->or_like('waktu', $keyword);
             $this->db->or_like('status', $keyword);
         }
         return $this->db->get('website_desa', $limit, $start)->result_array();

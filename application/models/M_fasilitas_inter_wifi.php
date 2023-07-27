@@ -34,6 +34,7 @@ class M_fasilitas_inter_wifi extends CI_Model {
             $this->db->or_like('acara', $keyword);
             $this->db->or_like('penyelenggara', $keyword);
             $this->db->or_like('surat_permohonan', $keyword);
+            $this->db->or_like('waktu', $keyword);
             $this->db->or_like('status', $keyword);
         }
         return $this->db->get('fasilitas_inter_wifi', $limit, $start)->result_array();

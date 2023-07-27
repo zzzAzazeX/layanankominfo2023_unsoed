@@ -27,6 +27,7 @@
                                 <th>Alasan Permohonan</th>
                                 <th>Keterangan Error</th>
                                 <th>Riwayan penggunaan</th>
+                                <th>Tanggal Masuk</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -54,6 +55,7 @@
                                 <td><?= $a['alasan'] ?></td>
                                 <td><?= $a['keterangan'] ?></td>
                                 <td><?= $a['riwayat'] ?></td>
+                                <td><?= $a['waktu'] ?></td>
                                 <td><?php if ($a['status']== 'Ditolak') {
                                     echo '<span class="badge badge-pill badge-danger">Ditolak</span>';
                                 } else if ($a['status']== 'Proses'){

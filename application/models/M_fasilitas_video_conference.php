@@ -34,6 +34,7 @@ class M_fasilitas_video_conference extends CI_Model {
             $this->db->or_like('acara', $keyword);
             $this->db->or_like('penyelenggara', $keyword);
             $this->db->or_like('surat_permohonan', $keyword);
+            $this->db->or_like('waktu', $keyword);
             $this->db->or_like('status', $keyword);
         }
         return $this->db->get('fasilitas_video_conference', $limit, $start)->result_array();

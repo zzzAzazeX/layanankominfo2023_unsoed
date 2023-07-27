@@ -78,8 +78,8 @@
         <div class="col-lg-12 mb-4">
     <!-- Simple Tables -->
     <div class="card">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Jumlah Tiap Jenis Layanan</h6>
+        <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-light">Jumlah Tiap Jenis Layanan</h6>
         </div>
         <div class="table-responsive p-3">
             <table class="table align-items-center table-flush" id="dataTable">
@@ -145,7 +145,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer"></div>
+        <div class="card-footer">
+            <a href="<?= base_url('admin/PDF')?>" class="btn btn-danger"><i class="fa fa-file"></i> PDF</a>
+        </div>
     </div>
 </div>
 

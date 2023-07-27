@@ -28,6 +28,7 @@
                                 <th>Keterangan</th>
                                 <th>Surat Permohonan</th>
                                 <th>SK</th>
+                                <th>Tanggal Masuk</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -56,6 +57,7 @@
                                 <td><?= $h['keterangan'] ?></td>
                                 <td><?= $h['surat_permohonan'] ?></td>
                                 <td><?= $h['sk'] ?></td>
+                                <td><?= $h['waktu'] ?></td>
                                 <td><?php if ($h['status']== 'Ditolak') {
                                     echo '<span class="badge badge-pill badge-danger">Ditolak</span>';
                                 } else if ($h['status']== 'Proses'){

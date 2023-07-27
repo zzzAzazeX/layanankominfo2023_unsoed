@@ -30,6 +30,7 @@ class M_aduan_jaringan_internet extends CI_Model {
             $this->db->or_like('alasan', $keyword);
             $this->db->or_like('keterangan', $keyword);
             $this->db->or_like('riwayat', $keyword);
+            $this->db->or_like('waktu', $keyword);
             $this->db->or_like('status', $keyword);
         }
         return $this->db->get('aduan_infrastruktur_jaringan_inter', $limit, $start)->result_array();

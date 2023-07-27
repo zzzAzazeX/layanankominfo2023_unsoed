@@ -30,6 +30,7 @@
                                 <th>Acara</th>
                                 <th>Penyelenggara</th>
                                 <th>Surat Permohonan</th>
+                                <th>Tanggal Masuk</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -60,6 +61,7 @@
                                 <td><?= $f['acara'] ?></td>
                                 <td><?= $f['penyelenggara'] ?></td>
                                 <td><?= $f['surat_permohonan'] ?></td>
+                                <td><?= $f['waktu'] ?></td>
                                 <td><?php if ($f['status']== 'Ditolak') {
                                     echo '<span class="badge badge-pill badge-danger">Ditolak</span>';
                                 } else if ($f['status']== 'Proses'){

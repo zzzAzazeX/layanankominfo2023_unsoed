@@ -24,6 +24,7 @@
                                 <th>Surat Permohonan Domain</th>
                                 <th>Surat Permohonan Hosting</th>
                                 <th>KTP</th>
+                                <th>Tanggal Masuk</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -50,6 +51,7 @@
                                 <td><?= $w['Surat_Permohonan_Hosting'] ?></td>
                                 <td><img src="<?= base_url('assets/website_desa/'. $w['KTP'])?>" alt="img" width="75px"
                                         height="75px"></td>
+                                <td><?= $w['waktu'] ?></td>
                                 <td><?php if ($w['status']== 'Ditolak') {
                                     echo '<span class="badge badge-pill badge-danger">Ditolak</span>';
                                 } else if ($w['status']== 'Proses'){
