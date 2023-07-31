@@ -228,7 +228,7 @@ class Admin extends CI_Controller {
         ], true);
 
         $dompdf->loadHtml($pdf_html);
-        $dompdf->setPaper('A4','potrait');
+        $dompdf->setPaper('A4','landscape');
         $dompdf->render();
         $dompdf->stream('Jumlah_Tiap_Layanan.pdf', array("Attachment" => false));
     }
