@@ -10,8 +10,15 @@
                     Didesain Oleh : <strong><span>Dinas Komunikasi dan Informatika Kab. Purbalingga</span></strong>
                 </div>
                 <div class="credits">
-                    Designed by <a href="https://uad.ac.id/id/profile-uad/">Cah Magang UAD</a>
+                    Designed by :
                 </div>
+                <div class="credits">
+                    - V01.2022 <a href="https://uad.ac.id/id/profile-uad/">Cah Magang UAD</a>
+                </div>
+                <div class="credits">
+                    - V02.2023 <a href="https://unsoed.ac.id/id">UNSOED</a>
+                </div>
+                
             </div>
 
             <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
