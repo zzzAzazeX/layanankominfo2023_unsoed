@@ -31,6 +31,7 @@ class M_hak_akses_matur_bupati extends CI_Model {
             $this->db->or_like('keterangan', $keyword);
             $this->db->or_like('surat_permohonan', $keyword);
             $this->db->or_like('sk', $keyword);
+            $this->db->or_like('waktu', $keyword);
             $this->db->or_like('status', $keyword);
         }
         return $this->db->get('hak_akses_matur_bupati', $limit, $start)->result_array();

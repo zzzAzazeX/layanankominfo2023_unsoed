@@ -1,13 +1,15 @@
 <?php 
 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+use Dompdf\Dompdf;
 
 class Admin extends CI_Controller {
 
     
     public function __construct()
     {
+        require_once APPPATH.'dompdf/autoload.inc.php';
         parent::__construct();
         if($this->session->userdata('status') != "login"){
 			redirect(base_url("layanan"));
@@ -25,7 +27,7 @@ class Admin extends CI_Controller {
     
 
     public function index()
-    {
+    {   
         $data['acc'] = array (
             'webdesa'=> $this->m_admin->acc_webdes(),
             'hak_akses_web' => $this->m_admin->acc_hakaksesweb(),
@@ -35,8 +37,6 @@ class Admin extends CI_Controller {
             'aduan_pengelolaan_website' => $this->m_admin->acc_aduanweb(),
             'aduan_jaringan_internet' => $this->m_admin->acc_aduaninter(),
         );
-
-        $jmlacc["jmlacc"] = array_sum($data['acc']);
 
         $data['proses'] = array (
             'webdesa'=> $this->m_admin->proses_webdes(),
@@ -48,8 +48,6 @@ class Admin extends CI_Controller {
             'aduan_jaringan_internet' => $this->m_admin->proses_aduaninter(),
         );
 
-        $jmlproses["jmlproses"] = array_sum($data['proses']);
-        
         $data['dc'] = array (
             'webdesa'=> $this->m_admin->dc_webdes(),
             'hak_akses_web' => $this->m_admin->dc_hakaksesweb(),
@@ -59,8 +57,6 @@ class Admin extends CI_Controller {
             'aduan_pengelolaan_website' => $this->m_admin->dc_aduanweb(),
             'aduan_jaringan_internet' => $this->m_admin->dc_aduaninter(),
         );
-
-        $jmldc["jmldc"] = array_sum($data['dc']);
 
         $data['all'] = array (
             'webdesa'=> $this->m_admin->all_webdes(),
@@ -72,22 +68,177 @@ class Admin extends CI_Controller {
             'aduan_jaringan_internet' => $this->m_admin->all_aduaninter(),
         );
 
+        $jmlacc["jmlacc"] = array_sum($data['acc']);
+        $jmlproses["jmlproses"] = array_sum($data['proses']);
+        $jmldc["jmldc"] = array_sum($data['dc']);
         $jmlall["jmlall"] = array_sum($data['all']);
+
+        $jmlacc['webdesa'] = $this->m_admin->acc_webdes();
+        $jmlacc['hak_akses_web'] = $this->m_admin->acc_hakaksesweb();
+        $jmlacc['hak_akses_matur_bupati'] = $this->m_admin->acc_maturbup();
+        $jmlacc['fasilitas_inter_wifi'] = $this->m_admin->acc_fasinter();
+        $jmlacc['fasilitas_video_conference'] = $this->m_admin->acc_fasvid();
+        $jmlacc['aduan_pengelolaan_website'] = $this->m_admin->acc_aduanweb();
+        $jmlacc['aduan_jaringan_internet'] = $this->m_admin->acc_aduaninter();
+
+        $jmlproses['webdesa'] = $this->m_admin->proses_webdes();
+        $jmlproses['hak_akses_web'] = $this->m_admin->proses_hakaksesweb();
+        $jmlproses['hak_akses_matur_bupati'] = $this->m_admin->proses_maturbup();
+        $jmlproses['fasilitas_inter_wifi'] = $this->m_admin->proses_fasinter();
+        $jmlproses['fasilitas_video_conference'] = $this->m_admin->proses_fasvid();
+        $jmlproses['aduan_pengelolaan_website'] = $this->m_admin->proses_aduanweb();
+        $jmlproses['aduan_jaringan_internet'] = $this->m_admin->proses_aduaninter();
+
+        $jmldc['webdesa'] = $this->m_admin->dc_webdes();
+        $jmldc['hak_akses_web'] = $this->m_admin->dc_hakaksesweb();
+        $jmldc['hak_akses_matur_bupati'] = $this->m_admin->dc_maturbup();
+        $jmldc['fasilitas_inter_wifi'] = $this->m_admin->dc_fasinter();
+        $jmldc['fasilitas_video_conference'] = $this->m_admin->dc_fasvid();
+        $jmldc['aduan_pengelolaan_website'] = $this->m_admin->dc_aduanweb();
+        $jmldc['aduan_jaringan_internet'] = $this->m_admin->dc_aduaninter();
+
+        $jmlall['webdesa'] = $this->m_admin->all_webdes();
+        $jmlall['hak_akses_web'] = $this->m_admin->all_hakaksesweb();
+        $jmlall['hak_akses_matur_bupati'] = $this->m_admin->all_maturbup();
+        $jmlall['fasilitas_inter_wifi'] = $this->m_admin->all_fasinter();
+        $jmlall['fasilitas_video_conference'] = $this->m_admin->all_fasvid();
+        $jmlall['aduan_pengelolaan_website'] = $this->m_admin->all_aduanweb();
+        $jmlall['aduan_jaringan_internet'] = $this->m_admin->all_aduaninter();
 
         $data["title"] = "Dashboard";
         $data['message'] = $this->m_message->tampil_data()->result();
-       $this->load->view('admin/header', $data);
-       $this->load->view('admin/admin', ['message' => $data['message'], 'jmlacc' => $jmlacc['jmlacc'], 'jmlproses' => $jmlproses['jmlproses'], 'jmldc' => $jmldc['jmldc'], 'jmlall' => $jmlall['jmlall']]);
-       $this->load->view('admin/footer');
+        $data['jmlall'] = $jmlall;
+        $data["jmlproses"] = $jmlproses;
+        $data["jmldc"] = $jmldc;
+        $data["jmlall"] = $jmlall;
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/admin', [
+            'message' => $data['message'],
+
+            'jmlacc' => $jmlacc['jmlacc'],
+            'jmlproses' => $jmlproses['jmlproses'],
+            'jmldc' => $jmldc['jmldc'],
+            'jmlall' => $jmlall['jmlall'],
+
+            'accwebdesa' => $jmlacc['webdesa'],
+            'acchak_akses_web' => $jmlacc['hak_akses_web'],
+            'acchak_akses_matur_bupati' => $jmlacc['hak_akses_matur_bupati'],
+            'accfasilitas_inter_wifi' => $jmlacc['fasilitas_inter_wifi'],
+            'accfasilitas_video_conference' => $jmlacc['fasilitas_video_conference'],
+            'accaduan_pengelolaan_website' => $jmlacc['aduan_pengelolaan_website'],
+            'accaduan_jaringan_internet' => $jmlacc['aduan_jaringan_internet'],
+            
+            'proseswebdesa' => $jmlproses['webdesa'],
+            'proseshak_akses_web' => $jmlproses['hak_akses_web'],
+            'proseshak_akses_matur_bupati' => $jmlproses['hak_akses_matur_bupati'],
+            'prosesfasilitas_inter_wifi' => $jmlproses['fasilitas_inter_wifi'],
+            'prosesfasilitas_video_conference' => $jmlproses['fasilitas_video_conference'],
+            'prosesaduan_pengelolaan_website' => $jmlproses['aduan_pengelolaan_website'],
+            'prosesaduan_jaringan_internet' => $jmlproses['aduan_jaringan_internet'],
         
+            'dcwebdesa' => $jmldc['webdesa'],
+            'dchak_akses_web' => $jmldc['hak_akses_web'],
+            'dchak_akses_matur_bupati' => $jmldc['hak_akses_matur_bupati'],
+            'dcfasilitas_inter_wifi' => $jmldc['fasilitas_inter_wifi'],
+            'dcfasilitas_video_conference' => $jmldc['fasilitas_video_conference'],
+            'dcaduan_pengelolaan_website' => $jmldc['aduan_pengelolaan_website'],
+            'dcaduan_jaringan_internet' => $jmldc['aduan_jaringan_internet'],
+
+            'allwebdesa' => $jmlall['webdesa'],
+            'allhak_akses_web' => $jmlall['hak_akses_web'],
+            'allhak_akses_matur_bupati' => $jmlall['hak_akses_matur_bupati'],
+            'allfasilitas_inter_wifi' => $jmlall['fasilitas_inter_wifi'],
+            'allfasilitas_video_conference' => $jmlall['fasilitas_video_conference'],
+            'alladuan_pengelolaan_website' => $jmlall['aduan_pengelolaan_website'],
+            'alladuan_jaringan_internet' => $jmlall['aduan_jaringan_internet'],
+
+        ]);
+       $this->load->view('admin/footer');
     }
 
-    public function delete_msg($id_message)
+    public function PDF()
     {
-        $data = array('id_message' => $id_message );
-        $this->m_message->delete($data);
-        redirect('admin', 'refresh');
+        $dompdf = new Dompdf();
+
+        $jmlacc['webdesa'] = $this->m_admin->acc_webdes();
+        $jmlacc['hak_akses_web'] = $this->m_admin->acc_hakaksesweb();
+        $jmlacc['hak_akses_matur_bupati'] = $this->m_admin->acc_maturbup();
+        $jmlacc['fasilitas_inter_wifi'] = $this->m_admin->acc_fasinter();
+        $jmlacc['fasilitas_video_conference'] = $this->m_admin->acc_fasvid();
+        $jmlacc['aduan_pengelolaan_website'] = $this->m_admin->acc_aduanweb();
+        $jmlacc['aduan_jaringan_internet'] = $this->m_admin->acc_aduaninter();
+
+        $jmlproses['webdesa'] = $this->m_admin->proses_webdes();
+        $jmlproses['hak_akses_web'] = $this->m_admin->proses_hakaksesweb();
+        $jmlproses['hak_akses_matur_bupati'] = $this->m_admin->proses_maturbup();
+        $jmlproses['fasilitas_inter_wifi'] = $this->m_admin->proses_fasinter();
+        $jmlproses['fasilitas_video_conference'] = $this->m_admin->proses_fasvid();
+        $jmlproses['aduan_pengelolaan_website'] = $this->m_admin->proses_aduanweb();
+        $jmlproses['aduan_jaringan_internet'] = $this->m_admin->proses_aduaninter();
+
+        $jmldc['webdesa'] = $this->m_admin->dc_webdes();
+        $jmldc['hak_akses_web'] = $this->m_admin->dc_hakaksesweb();
+        $jmldc['hak_akses_matur_bupati'] = $this->m_admin->dc_maturbup();
+        $jmldc['fasilitas_inter_wifi'] = $this->m_admin->dc_fasinter();
+        $jmldc['fasilitas_video_conference'] = $this->m_admin->dc_fasvid();
+        $jmldc['aduan_pengelolaan_website'] = $this->m_admin->dc_aduanweb();
+        $jmldc['aduan_jaringan_internet'] = $this->m_admin->dc_aduaninter();
+
+        $jmlall['webdesa'] = $this->m_admin->all_webdes();
+        $jmlall['hak_akses_web'] = $this->m_admin->all_hakaksesweb();
+        $jmlall['hak_akses_matur_bupati'] = $this->m_admin->all_maturbup();
+        $jmlall['fasilitas_inter_wifi'] = $this->m_admin->all_fasinter();
+        $jmlall['fasilitas_video_conference'] = $this->m_admin->all_fasvid();
+        $jmlall['aduan_pengelolaan_website'] = $this->m_admin->all_aduanweb();
+        $jmlall['aduan_jaringan_internet'] = $this->m_admin->all_aduaninter();
+
+        $pdf_html = $this->load->view('admin/jumlah_tiap_layanan', [
+            'accwebdesa' => $jmlacc['webdesa'],
+            'acchak_akses_web' => $jmlacc['hak_akses_web'],
+            'acchak_akses_matur_bupati' => $jmlacc['hak_akses_matur_bupati'],
+            'accfasilitas_inter_wifi' => $jmlacc['fasilitas_inter_wifi'],
+            'accfasilitas_video_conference' => $jmlacc['fasilitas_video_conference'],
+            'accaduan_pengelolaan_website' => $jmlacc['aduan_pengelolaan_website'],
+            'accaduan_jaringan_internet' => $jmlacc['aduan_jaringan_internet'],
+            
+            'proseswebdesa' => $jmlproses['webdesa'],
+            'proseshak_akses_web' => $jmlproses['hak_akses_web'],
+            'proseshak_akses_matur_bupati' => $jmlproses['hak_akses_matur_bupati'],
+            'prosesfasilitas_inter_wifi' => $jmlproses['fasilitas_inter_wifi'],
+            'prosesfasilitas_video_conference' => $jmlproses['fasilitas_video_conference'],
+            'prosesaduan_pengelolaan_website' => $jmlproses['aduan_pengelolaan_website'],
+            'prosesaduan_jaringan_internet' => $jmlproses['aduan_jaringan_internet'],
+        
+            'dcwebdesa' => $jmldc['webdesa'],
+            'dchak_akses_web' => $jmldc['hak_akses_web'],
+            'dchak_akses_matur_bupati' => $jmldc['hak_akses_matur_bupati'],
+            'dcfasilitas_inter_wifi' => $jmldc['fasilitas_inter_wifi'],
+            'dcfasilitas_video_conference' => $jmldc['fasilitas_video_conference'],
+            'dcaduan_pengelolaan_website' => $jmldc['aduan_pengelolaan_website'],
+            'dcaduan_jaringan_internet' => $jmldc['aduan_jaringan_internet'],
+
+            'allwebdesa' => $jmlall['webdesa'],
+            'allhak_akses_web' => $jmlall['hak_akses_web'],
+            'allhak_akses_matur_bupati' => $jmlall['hak_akses_matur_bupati'],
+            'allfasilitas_inter_wifi' => $jmlall['fasilitas_inter_wifi'],
+            'allfasilitas_video_conference' => $jmlall['fasilitas_video_conference'],
+            'alladuan_pengelolaan_website' => $jmlall['aduan_pengelolaan_website'],
+            'alladuan_jaringan_internet' => $jmlall['aduan_jaringan_internet']
+        ], true);
+
+        $dompdf->loadHtml($pdf_html);
+        $dompdf->setPaper('A4','landscape');
+        $dompdf->render();
+        $dompdf->stream('Jumlah_Tiap_Layanan.pdf', array("Attachment" => false));
     }
+
+        public function delete_msg($id_message)
+        {
+            $data = array('id_message' => $id_message );
+            $this->m_message->delete($data);
+            redirect('admin', 'refresh');
+        }
 
     
     public function webdesa()
